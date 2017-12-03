@@ -21,9 +21,18 @@ A major goal is to AVOID getting stuck in "why can't I get the serial communicat
 
 This project is designed to be used with a REV Robotics Rioduino, which provides easy communication between a RoboRIO and an Arduino compatible microcontroller through I2C communication via the RoboRIO's MXP port.
 
+### I2C
+
+There is example code for Arduinos to receive I2C messages in the AndyMark "RIOduino and Display Examples (zip)" demo for the Revduino at http://www.andymark.com/product-p/am-2999.htm
+
 ## Robot Code
 
 I'm planning to write Java code, since I mentor Team 5507 and we use Java.
+
+### WPILib docs
+
+* http://first.wpi.edu/FRC/roborio/release/docs/java/edu/wpi/first/wpilibj/I2C.html
+  * http://first.wpi.edu/FRC/roborio/beta/docs/java/edu/wpi/first/wpilibj/I2C.Port.html to specify MXP or Onboard
 
 ## Inspiration
 
