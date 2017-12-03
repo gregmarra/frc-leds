@@ -34,6 +34,10 @@ I'm planning to write Java code, since I mentor Team 5507 and we use Java.
 * http://first.wpi.edu/FRC/roborio/release/docs/java/edu/wpi/first/wpilibj/I2C.html
   * http://first.wpi.edu/FRC/roborio/beta/docs/java/edu/wpi/first/wpilibj/I2C.Port.html to specify MXP or Onboard
 
+### Example Code
+
+* https://www.chiefdelphi.com/forums/showthread.php?t=132572 especially Rakusan2's reply #13
+
 ## Inspiration
 
 This project is inspired by several other projects.
