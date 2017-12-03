@@ -37,6 +37,7 @@ I'm planning to write Java code, since I mentor Team 5507 and we use Java.
 ### Example Code
 
 * https://www.chiefdelphi.com/forums/showthread.php?t=132572 especially Rakusan2's reply #13
+* https://github.com/FRC2706/2017-2706-Robot-Code/blob/master/src/org/usfirst/frc/team2706/robot/subsystems/Bling.java uses RoboRIO UART to talk to Arduino
 
 ## Inspiration
 

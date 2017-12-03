@@ -7,6 +7,10 @@
  * The first parameter is the desired mode number
  * The remaining parameters are expected to be arguments to indicate some information visually
  * 
+ * Eventually, the code will allow toggling between UART and I2C serial communication.
+ * UART: Expected to be used for developing and debugging with a PC
+ * I2C: Expected to be used for communications with the RoboRIO
+ * 
  */
 
 #include <elapsedMillis.h>
