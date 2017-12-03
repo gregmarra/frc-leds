@@ -1,31 +1,29 @@
 
 #define SERIALINPUTBUFFERSIZE 64
 char serialInputBuffer[SERIALINPUTBUFFERSIZE]; // hold incoming data
-boolean serialInputComplete = false; // whether the input is complete
 int serialInputBufferIndex = 0;
+boolean serialInputComplete = false; // whether the input is complete
 
 #define MAXSERIALINPUTPARAMS 4
 int serialInputParams[MAXSERIALINPUTPARAMS];
 
 void setup() {
-  // initialize serial:
   Serial.begin(9600);
 }
 
 void loop() {
-  // print the string when a newline arrives:
-  if (serialInputComplete) {
-    handleSerialInput(); 
-  }
+  handleSerialInput(); 
 }
 
 void handleSerialInput() {
-  Serial.println(serialInputBuffer);
-  splitCommand();
-
-  memset(serialInputBuffer, 0, sizeof serialInputBuffer); // resets input buffer to 0's
-
-  serialInputComplete = false;
+  if (serialInputComplete) {
+    Serial.println(serialInputBuffer);
+    splitCommand();
+  
+    memset(serialInputBuffer, 0, sizeof serialInputBuffer); // resets input buffer to 0's
+  
+    serialInputComplete = false;
+  }
 }
 
 void splitCommand() {
@@ -35,7 +33,6 @@ void splitCommand() {
   
   while (bufferPointer != NULL)
   {
-    
     Serial.println(atoi(bufferPointer));
     serialInputParams[serialInputParamsIndex++] = atoi(bufferPointer);
     bufferPointer = strtok(NULL, ",");
@@ -53,7 +50,8 @@ void splitCommand() {
 */
 void serialEvent() {
   while (Serial.available()) {
-    serialInputBuffer[serialInputBufferIndex] = Serial.read();;
+    serialInputBuffer[serialInputBufferIndex] = Serial.read();
+    
     if (serialInputBuffer[serialInputBufferIndex] == '\n') {
       serialInputComplete = true;
       serialInputBufferIndex = 0;
