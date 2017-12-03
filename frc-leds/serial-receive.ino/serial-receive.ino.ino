@@ -1,6 +1,7 @@
 
-char serialInputBuffer[64];         // a String to hold incoming data
-boolean serialInputComplete = false;  // whether the string is complete
+#define SERIALINPUTBUFFERSIZE 64
+char serialInputBuffer[SERIALINPUTBUFFERSIZE]; // hold incoming data
+boolean serialInputComplete = false; // whether the input is complete
 int serialInputBufferIndex = 0;
 
 #define MAXSERIALINPUTPARAMS 4
@@ -58,6 +59,9 @@ void serialEvent() {
       serialInputBufferIndex = 0;
     } else {
       serialInputBufferIndex++;
+      if (serialInputBufferIndex >= SERIALINPUTBUFFERSIZE) {
+        serialInputBufferIndex = SERIALINPUTBUFFERSIZE - 1; // avoid buffer overflows
+      }
     }
   }
 }
