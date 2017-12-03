@@ -9,6 +9,8 @@
  * 
  */
 
+#include <elapsedMillis.h>
+
 #define NUMBEROFMODES 3
 typedef enum {MODE_ZERO, MODE_ONE, MODE_TWO} led_mode;
 const led_mode mode_numbers[] = {MODE_ZERO, MODE_ONE, MODE_TWO};
@@ -23,14 +25,18 @@ boolean serialInputComplete = false; // whether the input is complete
 #define MAXSERIALINPUTPARAMS 4
 int serialInputParams[MAXSERIALINPUTPARAMS];
 
+elapsedMillis blink_timer;
+
 void setup() {
   Serial.begin(9600);
+
+  pinMode(LED_BUILTIN, OUTPUT);
+  blink_timer = 0;
 }
 
 void loop() {
-  //serviceMode();
-  handleSerialInput(); 
-
+  serviceSerialInput();
+  serviceMode();
 }
 
 void switchMode(int new_mode_index, int arguments[]) {
@@ -72,15 +78,20 @@ void serviceMode() {
 }
 
 void doModeOne() {
-  //Serial.println("in mode one");
+  if (blink_timer > 1000) {
+    blink_timer = 0;
+    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+  }
 }
 
 void doModeTwo() {
-  //Serial.println("in mode two");
+  if (blink_timer > 3000) {
+    blink_timer = 0;
+    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+  }
 }
 
-
-void handleSerialInput() {
+void serviceSerialInput() {
   if (serialInputComplete) {
     splitCommand();
 
