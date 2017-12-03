@@ -1,8 +1,10 @@
-char inputString[64];         // a String to hold incoming data
-boolean stringComplete = false;  // whether the string is complete
-int index = 0;
-int parts[4];
-int partsindex = 0;
+
+char serialInputBuffer[64];         // a String to hold incoming data
+boolean serialInputComplete = false;  // whether the string is complete
+int serialInputBufferIndex = 0;
+
+#define MAXSERIALINPUTPARAMS 4
+int serialInputParams[MAXSERIALINPUTPARAMS];
 
 void setup() {
   // initialize serial:
@@ -11,31 +13,35 @@ void setup() {
 
 void loop() {
   // print the string when a newline arrives:
-  if (stringComplete) {
-    Serial.println(inputString);
-
-    splitString();
-
-    Serial.println("done");
-    
-    // clear the string:
-    for (int i=0; i<64; i++) {
-      inputString[i] = 0;
-    }
-    stringComplete = false;
+  if (serialInputComplete) {
+    handleSerialInput(); 
   }
 }
 
-void splitString() {
-  char* stringPtr;
-  stringPtr = strtok(inputString, ",");
-  partsindex = 0;
-  while (stringPtr != NULL)
+void handleSerialInput() {
+  Serial.println(serialInputBuffer);
+  splitCommand();
+
+  memset(serialInputBuffer, 0, sizeof serialInputBuffer); // resets input buffer to 0's
+
+  serialInputComplete = false;
+}
+
+void splitCommand() {
+  char* bufferPointer;
+  bufferPointer = strtok(serialInputBuffer, ",");
+  int serialInputParamsIndex = 0;
+  
+  while (bufferPointer != NULL)
   {
-    parts[partsindex] = atoi(stringPtr);
-    Serial.println(parts[partsindex]);
-    partsindex++;
-    stringPtr = strtok(NULL, ",");
+    
+    Serial.println(atoi(bufferPointer));
+    serialInputParams[serialInputParamsIndex++] = atoi(bufferPointer);
+    bufferPointer = strtok(NULL, ",");
+    
+    if (serialInputParamsIndex >= MAXSERIALINPUTPARAMS) {
+      break;
+    }
   }
 }
 
@@ -46,11 +52,13 @@ void splitString() {
 */
 void serialEvent() {
   while (Serial.available()) {
-    inputString[index] = Serial.read();;
-    if (inputString[index] == '\n') {
-      stringComplete = true;
+    serialInputBuffer[serialInputBufferIndex] = Serial.read();;
+    if (serialInputBuffer[serialInputBufferIndex] == '\n') {
+      serialInputComplete = true;
+      serialInputBufferIndex = 0;
+    } else {
+      serialInputBufferIndex++;
     }
-    index++;
   }
 }
 
