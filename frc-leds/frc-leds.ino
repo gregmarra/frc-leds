@@ -3,9 +3,9 @@
  * 
  * This sketch enables easy creation of visual lighting effects on FRC robots.
  * 
- * Serial communication parsing code adapted from
- * http://forum.arduino.cc/index.php?topic=396450
- * http://forum.arduino.cc/index.php?topic=288234.0
+ * The arduino expects to receive a serial command like "1,177,55,7"
+ * The first parameter is the desired mode number
+ * The remaining parameters are expected to be arguments to indicate some information visually
  * 
  */
 
