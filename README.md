@@ -2,6 +2,12 @@
 
 The goal of this project is to create an easy to use set of code to enable an FRC team to add LED lighting effects to their robot.
 
+## Rev Robotics Blinkin LED Driver
+
+Rev Robotics has released a product designed to make it easy to interface LEDs with FRC robots: http://www.revrobotics.com/rev-11-1105/
+
+I may not complete this project :)
+
 ## Architecture
 
 The system has two components.
